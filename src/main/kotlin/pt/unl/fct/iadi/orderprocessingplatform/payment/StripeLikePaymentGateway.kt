@@ -1,10 +1,14 @@
 package pt.unl.fct.iadi.orderprocessingplatform.payment
 
+import org.springframework.context.annotation.Profile
+import org.springframework.stereotype.Component
 import pt.unl.fct.iadi.orderprocessingplatform.domain.PaymentRequest
 import pt.unl.fct.iadi.orderprocessingplatform.domain.Receipt
 import pt.unl.fct.iadi.orderprocessingplatform.domain.ReceiptStatus
 import java.util.UUID.randomUUID
 
+@Component
+@Profile("prod")
 class StripeLikePaymentGateway : PaymentGateway {
 
     override fun processPayment(paymentRequest: PaymentRequest): Receipt {
@@ -17,7 +21,7 @@ class StripeLikePaymentGateway : PaymentGateway {
                 "reason" to "Invalid amount",
                 "amount" to amount
             )
-        } else if (amount > 10000.0) { // Note: Assignment said 10,000, not 100,000!
+        } else if (amount > 10000.0) {
             ReceiptStatus.FLAGGED_FOR_REVIEW to mapOf(
                 "gateway" to "stripe-like",
                 "reason" to "High value transaction requires review",
@@ -26,7 +30,7 @@ class StripeLikePaymentGateway : PaymentGateway {
         } else {
             ReceiptStatus.PAID to mapOf(
                 "gateway" to "stripe-like",
-                "transactionId" to java.util.UUID.randomUUID().toString(),
+                "transactionId" to randomUUID().toString(),
                 "amount" to amount
             )
         }
