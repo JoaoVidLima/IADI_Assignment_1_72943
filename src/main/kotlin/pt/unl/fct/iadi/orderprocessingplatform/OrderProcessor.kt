@@ -1,4 +1,4 @@
-package pt.unl.fct.iadi.orderprocessingplatform.orderprocessingplatform
+package pt.unl.fct.iadi.orderprocessingplatform
 
 import org.springframework.boot.CommandLineRunner
 import org.springframework.stereotype.Component
@@ -15,7 +15,7 @@ import java.time.Instant
 class OrderProcessor (
     private val priceCalculator: PriceCalculator,
     private val paymentGateway: PaymentGateway
-) : CommandLineRunner{
+) : CommandLineRunner {
 
 
     override fun run(vararg args: String?) {
