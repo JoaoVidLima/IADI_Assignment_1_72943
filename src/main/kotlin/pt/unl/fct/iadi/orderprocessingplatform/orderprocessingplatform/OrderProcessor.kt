@@ -3,7 +3,6 @@ package pt.unl.fct.iadi.orderprocessingplatform.orderprocessingplatform
 import org.springframework.boot.CommandLineRunner
 import org.springframework.stereotype.Component
 import pt.unl.fct.iadi.orderprocessingplatform.domain.Order
-import pt.unl.fct.iadi.orderprocessingplatform.domain.OrderItem
 import pt.unl.fct.iadi.orderprocessingplatform.domain.PaymentRequest
 import pt.unl.fct.iadi.orderprocessingplatform.domain.Receipt
 import pt.unl.fct.iadi.orderprocessingplatform.payment.PaymentGateway
@@ -22,10 +21,10 @@ class OrderProcessor (
     override fun run(vararg args: String?) {
 
         val items = listOf(
-            OrderItem("PROD-1", 2, 10.0),
-            OrderItem("PROD-2", 6, 20.0), // Este deve ativar o desconto se o Promo estiver ligado!
-            OrderItem("PROD-3", 1, 50.0),
-            OrderItem("PROD-4", 1, 9999.0)
+            Order.OrderItem("PROD-1", 2, 10.0),
+            Order.OrderItem("PROD-2", 6, 20.0), // Este deve ativar o desconto se o Promo estiver ligado!
+            Order.OrderItem("PROD-3", 1, 50.0),
+            Order.OrderItem("PROD-4", 1, 9999.0)
         )
 
         val order = Order("ORD-001", items, "user-42", Instant.now())
